@@ -14,6 +14,51 @@
 
 <?php 
 
+
+$accepted_currencies = [
+    'eur', 'usd', 'BTC'
+];
+
+
+class CasualUser 
+{
+    
+    public string $default_currency = $this->accepted_currencies[$item];
+    public string $language;
+    public string $location;
+    public string $sessionId;
+
+    public function __construct(string $default_currency, string $language, string $location, string $sessionId)
+    {
+        $this->default_currency = $default_currency;
+        $this->language = $language;
+        $this->location = $location;
+        $this->sessionId = $sessionId;
+    }
+}
+
+$casual_user = new CasualUser('Mario', 'Rossi', 'BTC', $language, 'Italia', 509384);
+
+class SubscribedUser extends CasualUser
+{
+    public string $first_name;
+    public string $last_name;
+    public string $email;
+    public string $password;
+    public string $user_name;
+    
+
+    public function __construct(string $first_name, string $last_name, string $email, string $language, string $location, string $sessionId)
+    {
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
+        $this->email = $email;
+        $this->language = $language;
+        $this->Description = $location;
+        $this->Description = $sessionId;
+    }
+}
+
 $p = [
     'asd', 'asd, asd', 'asd', 'asd'
 ];
@@ -24,7 +69,7 @@ $o =  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt dolore por
 
 // Description
 $d = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque, enim nam aliquam ipsum autem, quas, esse ipsa ab ut iure porro quam. Dolor possimus magnam quidem saepe accusantium iusto quod!';
-class Generic_product 
+class GenericProduct 
 {
     public string $name;
     public string $overview = $this->$o;
@@ -41,10 +86,21 @@ class Generic_product
         $this->Description = $description;
     }
 
+    public function getPrice($price)
+    {
+        // L'idea è che, poiché la condizione email=true non è compatibile con un'istanza CasualUser, non essendo la email un informazione richiesta ad un utente non iscritto, 
+        // per applicare correttamente lo sconto iscritti basta verificare la presenza del parametro email, che si troverà sicuramente in un'istanza SubscribedUser, e che sicuramente non si troverà in un'istanza CasualUser.
+        if ($this->email)
+        return $price - ( $this->price * (20/100) );
+        $this->price = $price;
+        return $price;
+    }
+    
+   
 
 }
 
-$generic_product = new Generic_product('Pallina per Cani', $O, 10, 5, $d);
+$generic_product = new GenericProduct('Pallina per Cani', $overview, 10, 5, $description);
 
 // Ingredients 
 $i = [
@@ -65,7 +121,7 @@ $ac = [
     $acp4 = ['asd', 'asd, asd', 'asd', 'asd'],
     $acp5 = ['asd', 'asd, asd', 'asd', 'asd'],
 ];
-class Food_product extends Generic_product
+class FoodProduct extends GenericProduct
 {
         public string $ingredients = $i;
         public string $analitic_components = $ac;
@@ -80,7 +136,7 @@ class Food_product extends Generic_product
 
 }
 
-$food_product = new Food_product('Pallina per Cani', $O, 10, 5, $d, $i[3], $ac[1]);
+$food_product = new FoodProduct('Pallina per Cani', $O, 10, 5, $d, $i[3], $ac[1]);
 
 ?>
 
