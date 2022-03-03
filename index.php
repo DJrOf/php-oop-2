@@ -14,13 +14,23 @@
 
 <?php 
 
+$p = [
+    'asd', 'asd, asd', 'asd', 'asd'
+];
+
+
+// Overview
+$o =  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt dolore porro nemo quam corporis quisquam quod voluptate temporibus eligendi,';
+
+// Description
+$d = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque, enim nam aliquam ipsum autem, quas, esse ipsa ab ut iure porro quam. Dolor possimus magnam quidem saepe accusantium iusto quod!';
 class Generic_product 
 {
     public string $name;
-    public string $overview;
+    public string $overview = $this->$o;
     public string $format;
     public string $price;
-    public string $description;
+    public string $description = $this->$d;
 
     public function __construct(string $name, string $overview, string $format, string $price, string $description)
     {
@@ -34,19 +44,43 @@ class Generic_product
 
 }
 
-$O =  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt dolore porro nemo quam corporis quisquam quod voluptate temporibus eligendi,';
-$d = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque, enim nam aliquam ipsum autem, quas, esse ipsa ab ut iure porro quam. Dolor possimus magnam quidem saepe accusantium iusto quod!';
-
-
 $generic_product = new Generic_product('Pallina per Cani', $O, 10, 5, $d);
 
+// Ingredients 
+$i = [
+    $ip1 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $ip2 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $ip3 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $ip4 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $ip5 = ['asd', 'asd, asd', 'asd', 'asd'],
+    
+];
 
+// Analitic Components
+$ac = [
+
+    $acp1 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $acp2 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $acp3 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $acp4 = ['asd', 'asd, asd', 'asd', 'asd'],
+    $acp5 = ['asd', 'asd, asd', 'asd', 'asd'],
+];
 class Food_product extends Generic_product
 {
-    public string $ingredients;
-    public string $analitic_components;
+        public string $ingredients = $i;
+        public string $analitic_components = $ac;
+
+        public function __construct(string $name, string $overview, string $format, string $price, string $description, $ingredients, $analitic_components)
+    {
+        parent::__construct($name, $overview, $format, $price, $description);
+        $this->$ingredients;
+        $this->$analitic_components;
+
+    }
 
 }
+
+$food_product = new Food_product('Pallina per Cani', $O, 10, 5, $d, $i[3], $ac[1]);
 
 ?>
 
