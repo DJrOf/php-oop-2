@@ -24,11 +24,11 @@ class Generic_product
 
     public function __construct(string $name, string $overview, string $format, string $price, string $description)
     {
-        $this->setName($name);
-        $this->setOverview($overview);
-        $this->setFormat($format);
-        $this->setPrice($price);
-        $this->setDescription($description);
+        $this->name = $name;
+        $this->overview = $overview;
+        $this->format = $format;
+        $this->price = $price;
+        $this->Description = $description;
     }
 
 
@@ -41,7 +41,12 @@ $d = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque, enim nam 
 $generic_product = new Generic_product('Pallina per Cani', $O, 10, 5, $d);
 
 
+class Food_product extends Generic_product
+{
+    public string $ingredients;
+    public string $analitic_components;
 
+}
 
 ?>
 
