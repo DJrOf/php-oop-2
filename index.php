@@ -19,6 +19,15 @@ $accepted_currencies = [
     'eur', 'usd', 'BTC'
 ];
 
+$creditCardData = [
+        $holder = [''],
+        $expire_date = [''],
+        $billing_address = [''],
+        $card_number = [''],
+        $cvc = [''],
+        
+    ];
+]
 
 class CasualUser 
 {
@@ -27,6 +36,7 @@ class CasualUser
     public string $language;
     public string $location;
     public string $sessionId;
+    private 
 
     public function __construct(string $default_currency, string $language, string $location, string $sessionId)
     {
@@ -37,7 +47,7 @@ class CasualUser
     }
 }
 
-$casual_user = new CasualUser('Mario', 'Rossi', 'BTC', $language, 'Italia', 509384);
+$casual_user = new CasualUser('BTC', $language, 'Italia', 509384);
 
 class SubscribedUser extends CasualUser
 {
@@ -58,6 +68,8 @@ class SubscribedUser extends CasualUser
         $this->Description = $sessionId;
     }
 }
+
+$subscribed_user = new SubscribedUser('Daniel', 'Ofosu', 'abracadaniel@fictionalmail.com', 'BTC', $language, 'Italia', 509384);
 
 $p = [
     'asd', 'asd, asd', 'asd', 'asd'
@@ -90,13 +102,25 @@ class GenericProduct
     {
         // L'idea è che, poiché la condizione email=true non è compatibile con un'istanza CasualUser, non essendo la email un informazione richiesta ad un utente non iscritto, 
         // per applicare correttamente lo sconto iscritti basta verificare la presenza del parametro email, che si troverà sicuramente in un'istanza SubscribedUser, e che sicuramente non si troverà in un'istanza CasualUser.
-        if ($this->email)
+        if ($this->email) 
         return $price - ( $this->price * (20/100) );
         $this->price = $price;
         return $price;
     }
     
-   
+    public function getConfirmation($expire_date)
+    {
+        $today = date("Y-m-d");
+        $expire = $this->expireDate; 
+        $today_time = strtotime($today);
+        $expire_time = strtotime($expire);
+
+        if (!$expire_time < $today_time) { 
+            return;
+         } else {
+             return $confirmation = true;
+         }
+    }
 
 }
 
