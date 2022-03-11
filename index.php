@@ -18,27 +18,15 @@
 $accepted_currencies = [
     'eur', 'usd', 'BTC'
 ];
-
-$creditCardData = [
-        $holder = [''],
-        $expire_date = [''],
-        $billing_address = [''],
-        $card_number = [''],
-        $cvc = [''],
-        
-    ];
-]
-
 class CasualUser 
 {
-    
     public string $default_currency = $this->accepted_currencies[$item];
     public string $language;
     public string $location;
     public string $sessionId;
-    private 
+    // private array $payments_data = $this->creditCardData;
 
-    public function __construct(string $default_currency, string $language, string $location, string $sessionId)
+    public function __construct(string $default_currency, string $language, string $location, string $sessionId) // private $payments_data)
     {
         $this->default_currency = $default_currency;
         $this->language = $language;
@@ -47,7 +35,7 @@ class CasualUser
     }
 }
 
-$casual_user = new CasualUser('BTC', $language, 'Italia', 509384);
+$casual_user = new CasualUser('BTC', $language, 'Italia', 509384); // $payments_data)
 
 class SubscribedUser extends CasualUser
 {
@@ -86,7 +74,7 @@ class GenericProduct
     public string $name;
     public string $overview = $this->$o;
     public string $format;
-    public string $price;
+    public string $price = getPrice();
     public string $description = $this->$d;
 
     public function __construct(string $name, string $overview, string $format, string $price, string $description)
@@ -160,10 +148,47 @@ class FoodProduct extends GenericProduct
 
 }
 
-$food_product = new FoodProduct('Pallina per Cani', $O, 10, 5, $d, $i[3], $ac[1]);
-
-?>
+$food_product = new FoodProduct('Pallina per Cani', $O, 10, $price, $d, $i[3], $ac[1]);
 
 
+$creditCardData = [
+    $holder = '',
+    $expire_date = '',
+    $billing_address = '',
+    $card_number ='',
+    $cvc = '',    
+];
+
+trait Address
+{
+  private $country;
+  private $street;
+  private $city;
+  private $zip;
+
+  public function getAddress()
+  {
+    return "$this->country $this->city $this->street $this->zip";
+  }
+
+  public function setAddress($country, $city, $street, $zip = '-')
+  {
+    $this->setCity($country);
+    $this->setCountry($city);
+    $this->setAvenue($street);
+    $this->setZip_code($zip);
+  }
+
+}
+
+trait CreditCard
+{
+  private $holder;
+  private $expire_date;
+  private $billing_address;
+  private $card_number;
+  private $cvc;
 
 
+
+  
